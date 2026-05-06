@@ -16,10 +16,12 @@ app.use(cookieParser());
 
 
 // CSRF Protection setup
-const { generateToken, doubleCsrfProtection } = doubleCsrf({
+const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
     getSecret: () => "A secret key, which normall would be stored in a .env file",
+    getSessionIdentifier: (req) => req.ip,
     cookieName: "x-csrf-token",
     cookieOptions: { sameSite: "strict", secure: false },
+    getCsrfTokenFromRequest: (req) => req.headers["csrf-token"],
 });
 
 // Serve static files from the current directory
@@ -43,8 +45,32 @@ app.get('/api/projects', (req, res, next) => {
     }
 });
 
+app.post('/api/projects', doubleCsrfProtection, [
+    body('title').trim().notEmpty().withMessage('Title is required'),
+    body('desc').trim().notEmpty().withMessage('Description is required'),
+    body('tech').custom((value) => {
+        if (!Array.isArray(value) || value.length === 0) {
+            throw new Error('At least one technology is required');
+        }
+        return true;
+    }),
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log('[Validation Errors]:', errors.array());
+        return res.status(400).json({ errors: errors.array() });
+    }
+    res.status(200).json({ message: 'Project added successfully' });
+});
+
 app.get('/api/csrf-token', (req, res) => {
-    res.json({ csrfToken: generateToken(req, res) });
+    try {
+        const token = generateCsrfToken(req, res);
+        res.json({ csrfToken: token });
+    } catch (err) {
+        console.error('[CSRF Token Error]:', err.message);
+        res.status(500).json({ error: 'Failed to generate CSRF token' });
+    }
 });
 
 // Secure contact form handling with validation

@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Part 3: Secure data loading using Fetch
     async function loadInitialData() {
         try {
-            // 1. Fetch the CSRF token from your new server endpoint
             const tokenResponse = await fetch('/api/csrf-token');
             const { csrfToken } = await tokenResponse.json();
             sessionStorage.setItem('project_csrf_token', csrfToken);
@@ -139,13 +138,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        const title = document.getElementById('new-title').value;
-        const desc = document.getElementById('new-desc').value;
-        const tech = document.getElementById('new-tech').value.split(',').map(t => t.trim());
+        const title = document.getElementById('new-title').value.trim();
+        const desc = document.getElementById('new-desc').value.trim();
+        const tech = document.getElementById('new-tech').value.split(',').map(t => t.trim()).filter(t => t);
+
+        console.log('[Submitting]:', { title, desc, tech });
+
+        // Client-side validation
+        const validationErrors = [];
+        if (!title) validationErrors.push("Project title is required.");
+        if (!desc) validationErrors.push("Description is required.");
+        if (tech.length === 0) validationErrors.push("At least one technology is required.");
+
+        if (validationErrors.length > 0) {
+            statusDiv.textContent = validationErrors.join(' ');
+            statusDiv.style.color = "red";
+            return;
+        }
 
 
             try {
-            const response = await fetch('/api/contact', {
+            const response = await fetch('/api/projects', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -161,6 +174,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 renderProjects(projectInstances);
                 submissionForm.reset();
                 statusDiv.textContent = "Project added securely!";
+            } else {
+                const errData = await response.json();
+                console.error('[Server Validation Errors]:', errData);
+                statusDiv.textContent = "Submission failed: " + (errData.errors?.map(e => e.msg).join(', ') || 'Unknown error');
+                statusDiv.style.color = "red";
             }
         } catch (err) {
             statusDiv.textContent = "Server communication error.";
