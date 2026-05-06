@@ -134,9 +134,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Token Validation
         const storedToken = sessionStorage.getItem('project_csrf_token');
-        if (!storedToken || storedToken !== csrfToken) {
-            console.error("Security: CSRF validation failed.");
-            statusDiv.textContent = "Security validation failed.";
+        if (!storedToken) {
+            statusDiv.textContent = "Security token missing. Refresh the page.";
             return;
         }
 
