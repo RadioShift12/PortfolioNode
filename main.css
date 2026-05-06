@@ -1,0 +1,307 @@
+/* 
+Dylan Apfelbeck 
+Date Created: December 17, 2025 
+*/
+
+body {
+    background-color: rgb(245, 247, 250);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: rgb(51, 65, 85);
+}
+
+#wrap {
+    width: 960px;
+    margin: 0 auto;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    min-height: 100vh;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 1.5em;
+    color: rgb(30, 41, 53);
+    padding: 20px;
+    margin: 0;
+}
+
+aside h2 {
+    color: rgb(14, 142, 165);
+    background-color: rgb(241, 245, 249);
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1.1em;
+}
+
+section h2 {
+    color: rgb(30, 41, 53);
+}
+
+section p {
+    color: rgb(71, 105, 89);
+    line-height: 1.6;
+}
+
+article p {
+    color: rgb(51, 69, 85);
+}
+
+nav {
+    width: 100%;
+    background-color: rgb(248, 250, 252);
+    border-bottom: 1px solid rgb(226, 232, 240);
+    margin-bottom: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 10px 20px;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+a:link {
+    color: rgb(14, 142, 165);
+    text-decoration: none;
+}
+
+a:visited {
+    color: rgb(14, 122, 160);
+}
+
+a:hover {
+    color: rgb(56, 189, 248);
+    text-decoration: underline;
+}
+
+a:active {
+    color: rgb(0, 54, 97);
+}
+
+.asideText {
+    font-size: .75em;
+    font-style: italic;
+    color: rgb(71, 105, 89);
+}
+
+aside {
+    position: absolute;
+    top: 270px;
+    right: 20px;
+    width: 240px;
+    background-color: rgb(248, 250, 252);
+    border: 1px solid rgb(226, 232, 240);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+footer {
+    clear: both;
+    background-image: url('footer.jpg');
+
+    background-size: cover;
+    border: 1px solid rgb(203, 212, 225);
+
+    padding: 30px;
+    margin-top: 40px;
+}
+
+footer address {
+    font-size: .75em;
+    text-align: center;
+    font-style: normal;
+}
+
+footer p {
+    color: rgb(99, 117, 134);
+
+    text-align: center;
+}
+
+
+section ul {
+    list-style-type: square;
+    color: rgb(71, 105, 89);
+}
+
+
+section.projects p {
+    font-size: 1.2em;
+    margin: 10px;
+}
+
+.project-item {
+    clear: both; /* Ensures projects don't overlap due to floats */
+    margin-bottom: 40px;
+    overflow: auto; /* Contains the floated images */
+}
+
+.project-img {
+    float: left;
+    margin: 0 20px 10px 0;
+    width: 200px;
+    height: auto;
+    border: 1px solid rgb(203, 212, 225);
+    border-radius: 4px;
+}
+/* --- TABLE STYLES --- */
+table.home {
+    width: 100%;
+    border: 1px solid rgb(203, 212, 225);
+    border-collapse: collapse;
+
+    margin: 20px 0;
+}
+
+table.home caption {
+    padding: 10px;
+    font-weight: bold;
+    color: rgb(30, 41, 53);
+}
+
+table.home th {
+    background-color: rgb(30, 41, 53);
+
+    color: rgb(255, 255, 255);
+
+    padding: 12px;
+}
+
+table.home td {
+    padding: 12px;
+
+    border: 1px solid rgb(226, 232, 240);
+    color: rgb(51, 69, 85);
+
+    font-size: 0.95em;
+    background-color: rgb(255, 255, 255);
+}
+
+
+section {
+    padding: 20px 40px;
+    width: 60%;
+}
+
+header img.profile-img {
+    margin: 20px;
+    border: 3px solid rgb(241, 245, 249);
+}
+
+.profile-img {
+    width: 100px;
+    height: auto;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+
+section.projects p {
+    font-size: 1.2em;
+    margin: 10px;
+}
+
+.project-item {
+    clear: both;
+    margin-bottom: 40px;
+    overflow: auto; 
+}
+
+.project-img {
+    float: left; 
+    margin: 0 20px 10px 0;
+    width: 250px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid rgb(226, 232, 240);
+}
+/* --- FORM STYLES --- */
+form {
+    margin-top: 20px;
+}
+
+fieldset {
+    border: 1px solid rgb(226, 232, 240);
+    border-radius: 8px;
+    padding: 20px;
+    background-color: rgb(248, 250, 252);
+}
+
+legend {
+    font-weight: bold;
+    color: rgb(14, 142, 165);
+    padding: 0 10px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: rgb(30, 41, 53);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid rgb(203, 212, 225);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: rgb(14, 142, 165);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: rgb(56, 189, 248);
+}
+
+
+
+
+.search-container {
+    margin-bottom: 30px;
+}
+
+#project-search {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #0e8ea5;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.tag {
+    background: #e0f2f1;
+    color: #00796b;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.error-msg {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input:invalid {
+    border: 2px solid lightcoral;
+}

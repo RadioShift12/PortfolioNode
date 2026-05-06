@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Pen Plotter",
+        "image": "printer.jpg",
+        "description": "A pen plotter based on the frame of a 3d printer.",
+        "technologiesUsed": ["Arduino", "CNC", "3D Printing"]
+    },
+    {
+        "title": "Alarm Clock",
+        "image": "clock.png",
+        "description": "A 3D printed alarm clock with a remote control.",
+        "technologiesUsed": ["ESP32", "C++"]
+    },
+    {
+        "title": "Portfolio website",
+        "image": "site.png",
+        "description": "A portfolio website to showcase my projects and skills.",
+        "technologiesUsed": ["HTML", "CSS", "JavaScript"]
+    }
+]

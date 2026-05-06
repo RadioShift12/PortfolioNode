@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Dylan Apfelbeck, projects, portfolio, Arduino, web applications, coding">
+    <meta name="description"
+        content="Portfolio project for Dylan Apfelbeck - web applications and interactive hardware projects">
+    <title>Portfolio - Dylan Apfelbeck | Projects</title>
+
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="main.css">
+
+    <style>
+        h1 {
+            border-left: 10px solid rgb(14, 142, 165);
+            padding-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgb(30, 41, 53);
+        }
+        /* Style for the submission form section */
+        #submission-container {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgb(241, 245, 249);
+            border-radius: 8px;
+        }
+    </style>
+
+    <script type="module" src="projects.js"></script>
+
+</head>
+
+<body id="top">
+
+    <div id="wrap">
+        <header>
+            <a href="resume.html" title="View my Resume">
+                <img src="profile.jpg" alt="Dylan Apfelbeck" class="profile-img">
+            </a>
+            <h1>Dylan Apfelbeck Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" title="Home">Home</a></li>
+                    <li><a href="projects.html" title="Projects">Projects</a></li>
+                    <li><a href="resume.html" title="Resume">Resume</a></li>
+                    <li><a href="contact.html" title="Contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="projects">
+            <h1>Featured Projects</h1>
+
+            <div class="search-container">
+                <input type="text" id="project-search" placeholder="Search by technology (e.g. Arduino, CSS)...">
+            </div>
+
+            <div id="project-display-area"></div>
+
+            <article id="submission-container">
+                <h2>Submit a New Project</h2>
+                <form id="project-submission-form" novalidate>
+                    <fieldset>
+                        <legend>Project Details</legend>
+                        
+                        <label for="new-title">Project Title*:</label>
+                        <input type="text" id="new-title" required>
+
+                        <label for="new-desc">Description*:</label>
+                        <textarea id="new-desc" rows="3" required></textarea>
+
+                        <label for="new-tech">Technology Tags (comma separated)*:</label>
+                        <input type="text" id="new-tech" placeholder="e.g. JavaScript, Arduino, CSS" required>
+
+                        <label for="new-image">Project Image (Upload):</label>
+                        <input type="file" id="new-image" accept="image/*">
+
+                        <label for="new-link">Project Link:</label>
+                        <input type="url" id="new-link" placeholder="https://github.com/yourproject">
+
+                        <button type="submit" class="submit-btn">Add Project</button>
+                    </fieldset>
+                </form>
+                <div id="submission-status"></div>
+            </article>
+
+            <aside>
+                <h2>Quick Facts</h2>
+                <ul>
+                    <li>
+                        <p class=\"asideText\"><strong>Projects Completed:</strong> 3+ major projects</p>
+                    </li>
+                    <li>
+                        <p class=\"asideText\">Focus Areas: Embedded systems, web apps</p>
+                    </li>
+                    <li>
+                        <p class=\"asideText\">Always Learning: New frameworks and tools</p>
+                    </li>
+                </ul>
+            </aside>
+        </section>
+
+        <footer>
+            <address>
+                Dylan Apfelbeck <br>
+                Marathon, WI <br>
+                <a href="mailto:dylan.apfelbeck@gmail.com">dylan.apfelbeck@gmail.com</a>
+            </address>
+            <p>&copy; 2025 Dylan Apfelbeck. All rights reserved.</p>
+            <p><a href="#top">Back to Top</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>
