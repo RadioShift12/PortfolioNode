@@ -7,7 +7,6 @@ export function createSafeElement(tag, text) {
 
 let currentId = 0; 
 
-// Part 2: Security - Rate Limiting Closure (Maintained from B2)
 const checkRateLimit = (() => {
     let lastSubmit = 0;
     const limit = 5000; 
@@ -80,17 +79,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         list.forEach(project => {
             try {
                 const { title, description, tech, image } = project.getDetails();
-                console.log(tech);
                 const article = document.createElement('article');
                 article.className = 'project-item';
+                article.style.transition = "transform 0.2s ease";
+
+                // Part 3 Mobile Touch Event Enhancement`
+                let lastTap = 0;
+                article.addEventListener('touchstart', (e) => {
+                    const now = Date.now();
+                    const DOUBLE_TAP_DELAY = 300;
+                    if (now - lastTap < DOUBLE_TAP_DELAY) {
+                        // Double tap triggered visual highlight toggle
+                        article.style.backgroundColor = 
+                            article.style.backgroundColor === 'rgb(224, 242, 254)' ? '' : 'rgb(224, 242, 254)';
+                    }
+                    lastTap = now;
+                }, { passive: true });
 
                 const h2 = createSafeElement('h2', title);
                 
+                // Part 3: Responsive Image Implementation
                 const img = document.createElement('img');
                 img.src = image;
+                img.srcset = `${image} 600w, ${image} 1200w`;
+                img.sizes = "(max-width: 600px) 100vw, 50vw"; 
+
                 img.className = 'project-img';
                 img.alt = title; 
-                img.onerror = () => { img.src = 'placeholder.png'; };
+                img.onerror = () => { 
+                    img.src = 'placeholder.png'; 
+                    img.srcset = '';
+                };
 
                 const p = createSafeElement('p', description);
 

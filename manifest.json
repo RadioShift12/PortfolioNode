@@ -1,0 +1,54 @@
+{
+  "short_name": "Dylan Portfolio",
+  "name": "Dylan Apfelbeck Portfolio",
+  "icons": [
+    {
+      "src": "profile.jpg",
+      "sizes": "718x720",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "profile.jpg",
+      "sizes": "718x720",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#f1f5f9",
+  "theme_color": "#0e8ea5",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "screenshots": [
+    {
+      "src": "profile.jpg",
+      "sizes": "718x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Desktop View of Portfolio"
+    },
+    {
+      "src": "profile.jpg",
+      "sizes": "718x720",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Mobile View of Portfolio"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Projects",
+      "short_name": "Projects",
+      "description": "View my featured software and hardware projects",
+      "url": "/projects.html",
+      "icons": [{ "src": "profile.jpg", "sizes": "718x720" }]
+    },
+    {
+      "name": "Contact Me",
+      "short_name": "Contact",
+      "description": "Get in touch for collaborations",
+      "url": "/contact.html",
+      "icons": [{ "src": "profile.jpg", "sizes": "718x720" }]
+    }
+  ]
+}

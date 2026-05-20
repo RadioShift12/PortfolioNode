@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="main.css">
+    <link rel="manifest" href="manifest.json"> </body>
 </head>
 
 <body id="top">
@@ -17,7 +18,10 @@
     <div id="wrap">
         <header>
             <a href="resume.html" title="View my Resume">
-                <img src="profile.jpg" alt="Dylan Apfelbeck" class="profile-img">
+                <picture>
+                    <source media="(max-width: 600px)" srcset="profile.jpg">
+                    <img src="profile.jpg" alt="Dylan Apfelbeck" class="profile-img" width="718" height="720">
+                </picture>
             </a>
             <h1>Dylan Apfelbeck Portfolio</h1>
             <nav>
