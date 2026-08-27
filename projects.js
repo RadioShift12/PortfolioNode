@@ -1,4 +1,6 @@
 import { Project } from './modules/project.js';
+import { ProjectCard } from './components/project-card.js';
+
 export function createSafeElement(tag, text) {
     const el = document.createElement(tag);
     el.textContent = text;
@@ -41,32 +43,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Part 3: Secure data loading using Fetch
     async function loadInitialData() {
-        try {
-            const tokenResponse = await fetch('/api/csrf-token');
-            const { csrfToken } = await tokenResponse.json();
-            sessionStorage.setItem('project_csrf_token', csrfToken);
-
-            const response = await fetch('/api/projects'); // Part 3: Secure data loading
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            
-            const data = await response.json();
-            
-            // Merge with existing instances if local storage is empty
-            if (projectInstances.length === 0) {
-                projectInstances = data.map(item => new Project({ ...item, currentId: currentId++ }));
-                console.log("Fetched Projects:", projectInstances);
-                renderProjects(projectInstances);
-                localStorage.setItem('portfolio_projects', JSON.stringify(data));
-            }
-        } catch (error) {
-            // Part 2 and 3: User-friendly error feedback
-            if (projectInstances.length === 0) {
-                statusDiv.textContent = "Unable to load new projects. Please check your connection.";
-                statusDiv.style.color = "red";
-            }
-            console.error("Fetch Error:", error);
+    try {
+        const response = await fetch('/api/projects');
+        
+        // Ensure the response is OK and actually JSON
+        const contentType = response.headers.get('content-type');
+        if (!response.ok || !contentType || !contentType.includes('application/json')) {
+            throw new TypeError("Server returned non-JSON response");
         }
+        
+        const data = await response.json();
+        // ... process data
+    } catch (error) {
+        console.error("Fetch Error:", error);
     }
+}
 
     function renderProjects(list) {
         displayArea.replaceChildren();
@@ -77,56 +68,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         list.forEach(project => {
-            try {
-                const { title, description, tech, image } = project.getDetails();
-                const article = document.createElement('article');
-                article.className = 'project-item';
-                article.style.transition = "transform 0.2s ease";
+            const { title, description, tech, image } = project.getDetails();
+            
+            // Make component
+            const card = document.createElement('project-card');
+            card.setAttribute('title', title);
+            card.setAttribute('description', description);
+            card.setAttribute('tech', tech.join(','));
+            card.setAttribute('image', image);
 
-                // Part 3 Mobile Touch Event Enhancement`
-                let lastTap = 0;
-                article.addEventListener('touchstart', (e) => {
-                    const now = Date.now();
-                    const DOUBLE_TAP_DELAY = 300;
-                    if (now - lastTap < DOUBLE_TAP_DELAY) {
-                        // Double tap triggered visual highlight toggle
-                        article.style.backgroundColor = 
-                            article.style.backgroundColor === 'rgb(224, 242, 254)' ? '' : 'rgb(224, 242, 254)';
-                    }
-                    lastTap = now;
-                }, { passive: true });
-
-                const h2 = createSafeElement('h2', title);
-                
-                // Part 3: Responsive Image Implementation
-                const img = document.createElement('img');
-                img.src = image;
-                img.srcset = `${image} 600w, ${image} 1200w`;
-                img.sizes = "(max-width: 600px) 100vw, 50vw"; 
-
-                img.className = 'project-img';
-                img.alt = title; 
-                img.onerror = () => { 
-                    img.src = 'placeholder.png'; 
-                    img.srcset = '';
-                };
-
-                const p = createSafeElement('p', description);
-
-                const techDiv = document.createElement('div');
-                techDiv.className = 'tech-tags';
-
-                tech.forEach(t => {
-                    const span = createSafeElement('span', t);
-                    span.className = 'tag';
-                    techDiv.appendChild(span);
-                });
-
-                article.append(h2, img, p, techDiv);
-                displayArea.appendChild(article);
-            } catch (err) {
-                console.error("Render Item Error:", err);
-            }
+            displayArea.appendChild(card);
         });
     }
 
