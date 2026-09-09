@@ -10,8 +10,12 @@ const PORT = process.env.PORT || 3000;
 
 
 // Security Middleware
-app.use(helmet());// Basic security headers
-app.use(express.json());// Parses JSON data for Part 3
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    connectSrc: ["'self'", "https://portfolioapi-a7og.onrender.com"],
+  },
+}));app.use(express.json());// Parses JSON data for Part 3
 app.use(cookieParser());
 
 
