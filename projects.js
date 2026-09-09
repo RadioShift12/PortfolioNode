@@ -1,7 +1,7 @@
 import { ProjectCard } from './components/project-card.js';
 
 let projectInstances = [];
-const base="http://localhost:3000"; 
+const base="https://portfolioapi-a7og.onrender.com"; 
 document.addEventListener('DOMContentLoaded', async () => {
     const displayArea = document.getElementById('project-display-area');
     const submissionForm = document.getElementById('project-submission-form');
