@@ -295,13 +295,27 @@ input, textarea {
     margin-top: 10px;
 }
 
-.error-msg {
-    display: block;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
+
 
 input:invalid {
-    border: 2px solid lightcoral;
+/*    border: 2px solid lightcoral;*/
+}
+/* Feedback styling */
+.error-msg {
+    color: #d9534f;
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 2px;
+    margin-bottom: 8px;
+    min-height: 1.2em;
+}
+
+input.invalid, textarea.invalid {
+    border: 2px solid #d9534f;
+    background-color: #fff0f0;
+}
+
+input.valid, textarea.valid {
+    border: 2px solid #5cb85c;
+    background-color: #f0fff0;
 }

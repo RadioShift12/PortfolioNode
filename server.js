@@ -9,13 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-// Security Middleware
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: ["'self'"],
-    connectSrc: ["'self'", "https://portfolioapi-a7og.onrender.com"],
-  },
-}));app.use(express.json());// Parses JSON data for Part 3
+app.use(helmet());// Basic security headers
+app.use(express.json());// Parses JSON data for Part 3
 app.use(cookieParser());
 
 
@@ -28,7 +23,6 @@ const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
     getCsrfTokenFromRequest: (req) => req.headers["csrf-token"],
 });
 
-// Serve static files from the current directory
 app.use(express.static(path.join(__dirname)));
 
 const handleErrors = (err, req, res, next) => {

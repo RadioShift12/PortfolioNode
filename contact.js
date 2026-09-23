@@ -9,6 +9,68 @@ const contactRateLimit = (() => {
     };
 })();
 
+const regexPatterns = {
+    // Allows letters, spaces, hyphens, and apostrophes, over two chars.
+    name: /^[A-Za-z\s'-]{2,}$/,
+    
+    // 2-letter state code (e.g., WI, CA)
+    state: /^[A-Za-z]{2}$/,
+    
+    // Standard 5 digit ZIP or ZIP+4
+    zip: /^\d{5}(-\d{4})?$/,
+    
+    // Accepts formats: 555-555-5555, (555) 555-5555, 5555555555, 555.555.5555
+    phone: /^(\+?\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+    
+    // Standard email pattern
+    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+};
+const fieldRules = {
+    fname: { pattern: regexPatterns.name, required: true, msg: "First name must be at least 2 characters (letters only)." },
+    lname: { pattern: regexPatterns.name, required: true, msg: "Last name must be at least 2 characters (letters only)." },
+    company: { pattern: null, required: true, msg: "Company name is required." },
+    city: { pattern: regexPatterns.name, required: false, msg: "City should contain letters only." },
+    state: { pattern: regexPatterns.state, required: false, msg: "State must be a 2-letter abbreviation." },
+    zip: { pattern: regexPatterns.zip, required: false, msg: "Enter a valid 5-digit Zip code." },
+    phone: { pattern: regexPatterns.phone, required: false, msg: "Enter a valid phone number." },
+    email: { pattern: regexPatterns.email, required: true, msg: "Please enter a valid email address." }
+};
+function validateField(input) {
+    const rule = fieldRules[input.id];
+    const errorSpan = document.getElementById(`${input.id}-error`);
+    const value = input.value.trim();
+
+    if (!rule) return true;
+
+    let isValid = true;
+    let errorMessage = "";
+
+    if (rule.required && value === "") {
+        isValid = false;
+        errorMessage = "This field is required.";
+    } 
+    else if (value !== "" && rule.pattern && !rule.pattern.test(value)) {
+        isValid = false;
+        errorMessage = rule.msg;
+    }
+
+    // UI feedback
+    if (errorSpan) {
+        errorSpan.textContent = errorMessage;
+    }
+
+    if (isValid) {
+        input.classList.remove('invalid');
+        input.classList.add('valid');
+    } else {
+        input.classList.remove('valid');
+        input.classList.add('invalid');
+    }
+
+    return isValid;
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     
@@ -20,47 +82,53 @@ document.addEventListener('DOMContentLoaded', () => {
     statusMessage.id = 'form-status-message';
     form.parentNode.insertBefore(statusMessage, form);
 
+
+    Object.keys(fieldRules).forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.addEventListener('blur', () => validateField(input));
+            
+            input.addEventListener('input', () => {
+                if (input.classList.contains('invalid')) {
+                    validateField(input);
+                }
+            });
+        }
+    });
+
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        
-        
-        if (!contactRateLimit()) {
+
+        // Rate limiting check
+        if (typeof contactRateLimit === 'function' && !contactRateLimit()) {
             statusMessage.textContent = "Please wait before submitting again.";
             statusMessage.style.color = "orange";
             return;
         }
 
-        if (sessionStorage.getItem('contact_csrf') !== contactToken) {
-            console.error("Security: Invalid Session Token");
-            return;
-        }
+        // Validate fields
+        let isFormValid = true;
+        Object.keys(fieldRules).forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                const fieldValid = validateField(input);
+                if (!fieldValid) isFormValid = false;
+            }
+        });
 
-        
-        const rawData = {
-            fname: document.getElementById('fname').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            comments: document.getElementById('comments').value.trim()
-        };
-
-        const sanitizedData = {};
-        for (let key in rawData) {
-            const div = document.createElement('div');
-            div.textContent = rawData[key]; 
-            sanitizedData[key] = div.innerHTML; 
-        }
-
-        
-        let errors = [];
-        if (!sanitizedData.fname) errors.push("First name is required.");
-        if (!sanitizedData.email.includes('@')) errors.push("Valid email is required.");
-
-        if (errors.length > 0) {
-            statusMessage.textContent = errors.join(' ');
+        if (!isFormValid) {
+            statusMessage.textContent = "Please correct the highlighted errors above.";
             statusMessage.style.color = "red";
         } else {
-            statusMessage.textContent = "Securely processed your message!";
+            statusMessage.textContent = "Thank you! Your form has been submitted successfully.";
             statusMessage.style.color = "green";
+            
+            // Clean up UI
             form.reset();
+            document.querySelectorAll('form input').forEach(input => {
+                input.classList.remove('valid', 'invalid');
+            });
         }
     });
 

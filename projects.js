@@ -1,13 +1,12 @@
 import { ProjectCard } from './components/project-card.js';
 
 let projectInstances = [];
-const base="https://portfolioapi-a7og.onrender.com"; 
+const base="http://localhost:3000"; 
 document.addEventListener('DOMContentLoaded', async () => {
     const displayArea = document.getElementById('project-display-area');
     const submissionForm = document.getElementById('project-submission-form');
     const statusDiv = document.getElementById('submission-status');
 
-    // Fetch CSRF Token for Secure Submissions
     async function getCsrfToken() {
         try {
             const res = await fetch(base + '/api/csrf-token');
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Render Web Components based on API response
+    // Render Web Components
     function renderProjects(list) {
         displayArea.replaceChildren();
 
