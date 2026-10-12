@@ -1,1 +1,9 @@
 https://portfolionode-m61u.onrender.com/projects.html
+
+
+
+
+
+I implemented the Jest testing framework and npm test, writing three unit tests covering the contact form's validation rules, and creating 
+detailed documentation for both the test assertions and the red to green development process. All configuration files and test 
+scripts are properly established in the project repository to ensure easy error handling and verification. 
