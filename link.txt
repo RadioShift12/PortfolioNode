@@ -1,9 +1,5 @@
-https://portfolionode-m61u.onrender.com/projects.html
+https://bundleportfolio.onrender.com/index.html
 
 
 
-
-
-I implemented the Jest testing framework and npm test, writing three unit tests covering the contact form's validation rules, and creating 
-detailed documentation for both the test assertions and the red to green development process. All configuration files and test 
-scripts are properly established in the project repository to ensure easy error handling and verification. 
+I ussed the Vite bundling framework in my portfolio and configured it as a multi-page build. The build combines and minifies my JavaScript modules and CSS into hashed files in the dist/ folder, while the service worker, manifest, and images are kept in public/ so they keep their exact filenames. Lastly, I deployed the bundled application to Render, where Express serves the dist/ folder in production.

@@ -8,8 +8,6 @@
         content="Portfolio project for Dylan Apfelbeck - web applications and interactive hardware projects">
     <title>Portfolio - Dylan Apfelbeck | Projects</title>
 
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="main.css">
     <link rel="manifest" href="manifest.json"> </body>
 
     <style>
@@ -29,7 +27,8 @@
         }
     </style>
 
-    <script type="module" src="projects.js"></script>
+    <script type="module" src="/src/script.js"></script>
+<script type="module" src="/src/projects.js"></script>
 
 </head>
 
@@ -39,8 +38,8 @@
         <header>
             <a href="resume.html" title="View my Resume">
                 <picture>
-                    <source media="(max-width: 600px)" srcset="profile.jpg">
-                    <img src="profile.jpg" alt="Dylan Apfelbeck" class="profile-img" width="718" height="720">
+                    <source media="(max-width: 600px)" srcset="/profile.jpg">
+                    <img src="/profile.jpg" alt="Dylan Apfelbeck" class="profile-img" width="718" height="720">
                 </picture>
             </a>
             <h1>Dylan Apfelbeck Portfolio</h1>
@@ -94,15 +93,17 @@
                 <h2>Quick Facts</h2>
                 <ul>
                     <li>
-                        <p class=\"asideText\"><strong>Projects Completed:</strong> 3+ major projects</p>
+                        <p class="asideText"><strong>Projects Completed:</strong> 3+ major projects</p>
                     </li>
                     <li>
-                        <p class=\"asideText\">Focus Areas: Embedded systems, web apps</p>
+                        <p class="asideText">Focus Areas: Embedded systems, web apps</p>
                     </li>
                     <li>
-                        <p class=\"asideText\">Always Learning: New frameworks and tools</p>
+                        <p class="asideText">Always Learning: New frameworks and tools</p>
                     </li>
                 </ul>
+                <h2>Tech Usage</h2>
+                <ul id="tech-usage"></ul>
             </aside>
         </section>
 

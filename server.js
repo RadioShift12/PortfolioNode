@@ -6,10 +6,18 @@ const { doubleCsrf } = require('csrf-csrf');
 const { body, validationResult } = require('express-validator');
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 
 
-app.use(helmet());// Basic security headers
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "connect-src": ["'self'", "https://nominatim.openstreetmap.org"],
+        },
+    },
+}));
 app.use(express.json());// Parses JSON data for Part 3
 app.use(cookieParser());
 
@@ -23,7 +31,7 @@ const { generateCsrfToken, doubleCsrfProtection } = doubleCsrf({
     getCsrfTokenFromRequest: (req) => req.headers["csrf-token"],
 });
 
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 const handleErrors = (err, req, res, next) => {
     console.error(`[Error Log]: ${err.message}`);

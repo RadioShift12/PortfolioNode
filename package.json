@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +25,7 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
-    "jest": "^30.5.2"
+    "jest": "^30.5.2",
+    "vite": "^8.3.4"
   }
 }
